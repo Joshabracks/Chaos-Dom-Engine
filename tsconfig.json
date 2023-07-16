@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "noImplicitAny": true,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "plugins": [{ "name": "typescript-plugin-css-modules" }]
+  },
+  "files": [
+    "./engine/index.ts"
+  ]
+}

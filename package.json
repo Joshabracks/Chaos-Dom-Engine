@@ -1,0 +1,17 @@
+{
+  "name": "chaos-dom-engine",
+  "version": "1.0.0",
+  "description": "Game engine that lives on the DOM",
+  "main": "./src/index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Joshua Bracks",
+  "license": "ISC",
+  "dependencies": {
+
+  },
+  "devDependencies": {
+    "@types/node": "^20.4.2"
+  }
+}
