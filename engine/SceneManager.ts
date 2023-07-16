@@ -155,11 +155,9 @@ function loadState(filepath: string) {
   if (file.ACTIVE_SCENE) ACTIVE_SCENE = file.ACTIVE_SCENE
   document.querySelector('#game').innerHTML = ''
   document.querySelector('#image-bucket').innerHTML = ''
-  console.log('map scenes')
   const loadedScenes: Scene[] = file.SCENES.map((scene: {camera: any; name: any; objects: any[] }) => {
     const camera = new Camera()
     camera.position = scene.camera.position
-    console.log('map objects')
     return {
       name: scene.name,
       objects: scene.objects.map(newGameObjectFromJSON),

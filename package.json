@@ -4,14 +4,19 @@
   "description": "Game engine that lives on the DOM",
   "main": "./src/index.ts",
   "scripts": {
+    "build": "webpack",
+    "build:dev": "webpack --env DEBUG=true",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Joshua Bracks",
   "license": "ISC",
-  "dependencies": {
-
-  },
   "devDependencies": {
-    "@types/node": "^20.4.2"
+    "@types/node": "^20.4.2",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.45.0",
+    "ts-loader": "^9.4.4",
+    "webpack": "^5.88.1",
+    "webpack-cli": "^5.1.4"
   }
 }

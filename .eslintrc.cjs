@@ -21,6 +21,7 @@ module.exports = {
     quotes: ['error', 'single'],
     semi: ['error', 'never'],
     'no-console': 1,
-    'prefer-template': 1
+    'prefer-template': 1,
+    '@typescript-eslint/no-explicit-any': "off"
   },
 }
