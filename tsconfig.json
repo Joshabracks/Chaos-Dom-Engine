@@ -1,16 +1,31 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "moduleResolution": "Node",
-    "noImplicitAny": true,
-    "removeComments": true,
-    "preserveConstEnums": true,
-    "sourceMap": true,
-    "esModuleInterop": true,
-    "plugins": [{ "name": "typescript-plugin-css-modules" }]
+        "composite": true,
+        "declaration": true,
+        "declarationMap": true,
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "importHelpers": true,
+        "module": "ESNext",
+        "outDir": "dist",
+        "moduleResolution": "node",
+        "newLine": "LF",
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitReturns": true,
+        "noUncheckedIndexedAccess": true,
+        "noUnusedLocals": false,
+        "noUnusedParameters": false,
+        "preserveConstEnums": true,
+        "removeComments": true,
+        "resolveJsonModule": true,
+        "strict": true,
+        "target": "ES2018"
   },
   "files": [
     "./engine/index.ts"
+  ],
+  "include": [
+    "engine", "typings.d.ts"
   ],
   "exclude": [
     "dist",

@@ -1,0 +1,1 @@
+{"version":3,"file":"Camera.d.ts","sourceRoot":"","sources":["../../engine/Camera.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,UAAU,EAAgB,MAAM,cAAc,CAAA;AAEvD,OAAO,EAAE,OAAO,EAA6B,MAAM,QAAQ,CAAA;AA6C3D,cAAM,MAAM;IACV,QAAQ,EAAE,OAAO,CAAe;IAChC,MAAM,CAAC,MAAM,EAAE,UAAU;CAqB1B;AAED,eAAe,MAAM,CAAA"}

@@ -1,11 +1,11 @@
 {
   "name": "chaos-dom-engine",
-  "version": "1.0.0",
+  "version": "1.0.8",
   "description": "Game engine that lives on the DOM",
-  "main": "build/chaos.js",
-  "types": "build/chaos.d.ts",
+  "main": "dist/engine/index.js",
+  "types": "dist/engine/index.d.ts",
   "scripts": {
-    "build": "webpack",
+    "build": "tsc",
     "build:dev": "webpack --env DEBUG=true",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

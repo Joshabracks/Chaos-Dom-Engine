@@ -1,0 +1,46 @@
+import { error } from './Logger';
+import fs from 'fs';
+import path from 'path';
+const SETTINGS = {
+    'target-fps': 60,
+    'viewport-x': 1920,
+    'viewport-y': 1080,
+};
+const settingsPath = path.join(__dirname, process.env.SETTINGS_JSON_PATH || './config/settings.json');
+if (fs.existsSync(settingsPath)) {
+    const file = fs.readFileSync(settingsPath, 'utf-8');
+    try {
+        const settingsConfigurations = JSON.parse(file);
+        for (const key in SETTINGS) {
+            if (SETTINGS[key] &&
+                typeof settingsConfigurations[key] === typeof SETTINGS[key]) {
+                SETTINGS[key] = settingsConfigurations[key];
+            }
+        }
+    }
+    catch (e) {
+        error(e);
+    }
+}
+else {
+    error(`Unable to find file: ${settingsPath}`);
+}
+function TargetFps(fps = 0) {
+    if (fps <= 0)
+        return SETTINGS['target-fps'];
+    SETTINGS['target-fps'] = fps;
+    return fps;
+}
+function Viewport(viewportX = -1, viewportY = -1) {
+    if (viewportX > 0)
+        SETTINGS['viewport-x'] = viewportX;
+    if (viewportY > 0)
+        SETTINGS['viewport-y'] = viewportY;
+    return { x: SETTINGS['viewport-x'], y: SETTINGS['viewport-y'] };
+}
+function Settings(targetFps = -1, viewportX = -1, viewportY = -1) {
+    Viewport(viewportX, viewportY);
+    TargetFps(targetFps);
+    return SETTINGS;
+}
+export { Settings, TargetFps, Viewport };
