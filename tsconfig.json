@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "module": "commonjs",
+    "moduleResolution": "Node",
     "noImplicitAny": true,
     "removeComments": true,
     "preserveConstEnums": true,
@@ -10,5 +11,9 @@
   },
   "files": [
     "./engine/index.ts"
+  ],
+  "exclude": [
+    "dist",
+    "node_modules"
   ]
 }
