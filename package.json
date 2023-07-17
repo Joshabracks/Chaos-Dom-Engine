@@ -1,6 +1,6 @@
 {
   "name": "chaos-dom-engine",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Game engine that lives on the DOM",
   "main": "dist/engine/index.js",
   "types": "dist/engine/index.d.ts",
