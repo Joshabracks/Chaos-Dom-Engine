@@ -10,13 +10,7 @@ function loadSVG(filepathOrSVGString, colors = {}, scale = 1) {
     }
     let file = (fs.existsSync(filepathOrSVGString) && fs.readFileSync(filepathOrSVGString, 'utf-8'));
     if (!file) {
-        file = filepathOrSVGString.match(/<svg[\s\S]+<\/svg>/) && filepathOrSVGString;
-        if (file) {
-            const id = file.match(/image-id="([^"]+)"/)[1];
-            imageBucket.innerHTML = imageBucket.innerHTML + file;
-            const el = document.querySelector(`svg[image-id="${id}"]`);
-            return el;
-        }
+        file = filepathOrSVGString.match(/<svg[\s\S]+<\/svg>/) && filepathOrSVGString || '';
     }
     if (!file) {
         error(`unable to find or parse file from ${filepathOrSVGString}`);
