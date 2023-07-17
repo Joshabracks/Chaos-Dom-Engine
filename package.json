@@ -1,6 +1,6 @@
 {
   "name": "chaos-dom-engine",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Game engine that lives on the DOM",
   "main": "dist/engine/index.js",
   "types": "dist/engine/index.d.ts",
@@ -19,5 +19,9 @@
     "ts-loader": "^9.4.4",
     "webpack": "^5.88.1",
     "webpack-cli": "^5.1.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Joshabracks/Chaos-Dom-Engine.git"
   }
 }
