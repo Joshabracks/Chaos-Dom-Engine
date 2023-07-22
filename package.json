@@ -24,5 +24,10 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/Joshabracks/Chaos-Dom-Engine.git"
+  },
+  "release": {
+    "branches": [
+      "main"
+    ]
   }
 }
