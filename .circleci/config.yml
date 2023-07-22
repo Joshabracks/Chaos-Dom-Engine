@@ -1,0 +1,37 @@
+version: 2.1
+
+orbs:
+  node: circleci/node@5.1.0
+
+jobs:
+  install_and_lint:
+    executor: node/default
+    steps:
+      - checkout
+      - node/install:
+          install-yarn: false
+          node-version: '18.12'
+      - run: node --version
+      - run: sudo npm i 
+      - run: sudo npm run lint
+  deploy:
+    executor: node/default
+    steps:
+      - checkout
+      - run: npx semantic-release
+    
+workflows:
+  test_deploy:
+    jobs:
+      - install_and_lint
+      - node/test:
+          requires:
+            - install_and_lint
+      - deploy:
+          context: chaos-dom-engine
+          filters:
+            branches:
+              only: main
+          requires:
+            - install_and_lint
+            - node/test

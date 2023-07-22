@@ -20,12 +20,6 @@ function loadSVG(filepathOrSVGString: string, colors: {[key: string]: string} = 
   let file = (fs.existsSync(filepathOrSVGString) && fs.readFileSync(filepathOrSVGString, 'utf-8'))
   if (!file) {
     file = filepathOrSVGString.match(/<svg[\s\S]+<\/svg>/) && filepathOrSVGString || ''
-    // if (file) {
-      // imageBucket.innerHTML = imageBucket.innerHTML + file
-      // const elements = imageBucket.querySelectorAll('svg')
-      // const el = elements[elements.length -1 ]
-      // return el as SVGSVGElement
-    // } 
   }
   if (!file) {
     error(`unable to find or parse file from ${filepathOrSVGString}`)
@@ -34,7 +28,7 @@ function loadSVG(filepathOrSVGString: string, colors: {[key: string]: string} = 
   if (colors) {
     for ( const key in colors) {
       const colorRegex = new RegExp(`{{${key}}}`, 'g')
-      file = file.replace(colorRegex, colors[key])
+      file = file.replace(colorRegex, colors[key] as string)
     }
   }
 
@@ -44,8 +38,8 @@ function loadSVG(filepathOrSVGString: string, colors: {[key: string]: string} = 
     error(`there was a problem adding svg from filepath: ${filepathOrSVGString}`)
     return null
   }
-  let width: number = parseInt(svg.getAttribute('width'))
-  let height: number = parseInt(svg.getAttribute('height'))
+  let width: number = parseInt(svg.getAttribute('width') as string)
+  let height: number = parseInt(svg.getAttribute('height') as string)
   if (width) width = width * scale
   if (height) height = height * scale
   svg.setAttribute('width', `${width}`)

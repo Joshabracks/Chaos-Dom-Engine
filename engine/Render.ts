@@ -7,7 +7,7 @@ function renderLoop(timestamp = 0) {
   if (!Application.START) Application.START = timestamp
   const delta = timestamp - Application.PREVIOUS_TIME_STAMP
   if (delta > Application.TARGET_MS) Application.PREVIOUS_TIME_STAMP = timestamp
-  const scene: Scene = getActiveScene()
+  const scene: Scene = getActiveScene() as Scene
   scene.objects.forEach(object => scene.camera.render(object))
   pollEvents()
   requestAnimationFrame(renderLoop)

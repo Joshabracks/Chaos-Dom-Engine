@@ -131,3 +131,111 @@ window.onload = () => {
 Next time you run your game, the following image should render on screen
 
 ![01.png](01.png)
+
+## API
+
+### Application
+Constants used throughout the application  
+`Running` [boolean]: Signals if application render loop should continue.  If set to false, the Application window will close  
+`START` [number]: Timestamp signifying when the application started running  
+`PREVIOUS_TIME_STAMP` [number]: Timestamp used to determine time of last frame render  
+`TARGET_MS` [number]: The approximate number of miliseconds between render frames  
+`SCALE` [number]: Determines the size images in the game should render at
+
+### Camera
+`Camera` [class]: Determines the frame bounds for rendering in-game objects  
+  - `position` [Vector2]: determines x/y coordinates of the camera
+
+### Component
+`ComponentType` [enum]: Used to mark a component's type  
+  - `Transform` [string]: 'transform'  
+  - `Image` [string]: 'image'
+---
+`Component` [Object]: Data object used to customize functionality of a GameObject  
+  - `active` [boolean]: Determines if component should be considered during render loop  
+  - `type` [ComponentType]: Denotes the desired functionality of the component
+---
+`Transform` [Component]: Holds position, size and other transformative data to be applied to the GameObject  
+  - `type` [ComponentType] = `ComponentType.Transform`  
+  - `position` [Vector2]: Position of the game object within the game world.  
+  - `scale` [Vector2]: Sets the horizontal (x) and vertical (y) scaling of the GameObject.  This will also effect Image Components attached to the Game Object
+---
+`Image` [Component]: Image (Currently only SVG) attached to the GameObject  
+ - `type` [ComponentType] = `ComponentType.Image`  
+ - `element` [ `HTMLImageElement` | `SVGSVGElement` ]: visual DOM component attached to the GameObject.  Can be set to a filepath string when defined inside of a JSON GameObject or Scene file  
+ - `depth` [number]: Render depth of the element  
+ - `colors` [dictionary`<`string`:`string`>]: Colors to replace variables outlined witin the SVG string upon initial render.
+---
+`copy` [function] -> any: Makes a deep copy of given component and returns the copy
+  - `component` [any]: Component to be copied.  (technically works with any give object)
+
+## file
+`SAVE_JSON_CODE` [enum]  
+  - `SUCCESS`: 0  
+  - `INVALID_PATH`: 1  
+  - `FILE_EXISTS`: 2  
+  - `BAD_DATA`: 3
+---
+`loadJSON` [function] -> any: Attempts to read and return JSON file at given filepath.  Returns an error if the operation fails
+  - `filepath` [string]: direct filepath to JSON file
+---
+`saveJSON` [function] -> SAVE_JSON_CODE: Attempts to save given object to a JSON file at given folder path as given filename
+  - `folderPath` [string]: path of save folder  
+  - `filename` [string]: name of destination file   
+  - `data` [any]: data to be saved  
+  - `override` [boolean]: whether or not to overwrite existing file  
+
+### GameObject
+`GameObject`[Object]: Data object used to denote in-game objects.  
+  - `active`[boolean]: Determines whether or not object will be addressed during the renderLoop  
+  - `components`[Array<component>]: Determine the behavior of the the GameObject  
+  - `children`[Array<GameObject>]: Other game objects that are effected by the parent GameObject's Transform Component or other propagating Components
+---
+`newGameObjectFromJSON`[function] -> GameObject: Creates a new GameObject from given parameters
+  - `json`[any]: Set of props used to craft the new GameObject.
+---
+ `newGameObjectFromFile`[function] -> GameObject: Creates a new GameObject read from JSON file with appropriate parameters
+  - `filepath`[string]: full path to file with GameObject information
+---
+`getComponent`[function] -> Component: Gets component of the the Given type from the given GameObject  
+  - `gameObject`[GameObject]: GameObject to query for component  
+  - `type`[ComponentType]: ComponentType to look for
+---
+`getComponentIndex`[function] -> number: Queries a GameObject for given component type and returns the component's index
+  - `gameObject`[GameObject]: Game objec to query for component index  
+  - `type`[ComponentType]: ComponentType to look for
+---
+`copy`[function] -> GameObject: Makes and returns a deep copy of a gameObject
+  -  `gameObject`[GameObject]: GameObject to make copy of
+
+## ImageLoader
+`loadSVG`[function] -> SVGSVGElement: Loads SVG element onto DOM via file or stringified SVG  
+  -  `filePathOrSVGString`[string]: Filepath to SVG file or stringified SVG to load into DOM  
+  -  `colors`[dictionary<string: string>]: Color codes by variable key to replace double bracket variables `{{variable_name}}` within given SVG code.
+
+## Input
+`KeyEvent`[enum]  
+  - `DOWN`[string] = keydown  
+  - `UP`[string] = keyup  
+  - `PRESSED`[string] = keypress  
+---
+`KeyBinding` [interface]: Object used to configure and bind functions to key events
+  - `code` [any]: key code, usually number or string, to be bound. (See Keys)
+  - `type` [KeyEvent]: KeyEvent to query
+  - `action` [function]: Function to bind
+---
+`InputEvent` [interface]: Event parameters polled each render cycle to run events
+  - `code` [any]: key code, usually number or string, to e bound (See Keys)
+  - `type` [KeyEvent]: KeyEvent to query
+  - `data` [any]: Window.event object
+---
+`addKeyBinding` [function] --> void: Uses KeyBinding interface to bind a key event to a function
+  - `binding` [KeyBinding]: KeyBinding to process
+---
+`bindKey` [function] --> boolean: Constructs a KeyBinding and reports if key was successfully bound
+  - `event` [KeyboardEvent]: Window generated event
+  - `type` [KeyEvent]: Type of keypress to trigger function
+  - `callback` [function]: Callback function to be used when event is triggered
+---
+`getKey` [function] --> string: Retrives code from Window generated event
+  - `event` [InputEvent]: Window generated input event

@@ -6,8 +6,8 @@
   "types": "dist/engine/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "build:dev": "webpack --env DEBUG=true",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\"",
+    "lint": "eslint . --ext .ts"
   },
   "author": "Joshua Bracks",
   "license": "ISC",
@@ -16,6 +16,7 @@
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "eslint": "^8.45.0",
+    "semantic-release": "^21.0.7",
     "ts-loader": "^9.4.4",
     "webpack": "^5.88.1",
     "webpack-cli": "^5.1.4"

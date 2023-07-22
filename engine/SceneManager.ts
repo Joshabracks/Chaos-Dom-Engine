@@ -112,6 +112,7 @@ function saveState(filepath: string, filename: string, override = false): SAVE_J
   function serializeGameObject(object: GameObject): any {
     const serializer = new XMLSerializer()
     return {
+      ...object,
       active: object.active,
       children: object.children.map(serializeGameObject),
       components: object.components.map(component => {
@@ -120,18 +121,17 @@ function saveState(filepath: string, filename: string, override = false): SAVE_J
           return component
         case ComponentType.Image:
           return {
+            ...component,
             type: component.type,
             active: component.active,
             depth: component.depth,
             colors: component.colors,
             element: serializer.serializeToString(component.element),
-            ...component
           }
         default:
           return component
         }
       }),
-      ...object
     }
   }
   const result = {
@@ -153,8 +153,10 @@ function loadState(filepath: string) {
   const file = loadJSON(filepath)
   if (!file.SCENES) return false
   if (file.ACTIVE_SCENE) ACTIVE_SCENE = file.ACTIVE_SCENE
-  document.querySelector('#game').innerHTML = ''
-  document.querySelector('#image-bucket').innerHTML = ''
+  const gameContainer = document.querySelector('#game')
+  if (gameContainer) gameContainer.innerHTML = ''
+  const imagebucket = document.querySelector('#image-bucket')
+  if (imagebucket) imagebucket.innerHTML = ''
   const loadedScenes: Scene[] = file.SCENES.map((scene: {camera: any; name: any; objects: any[] }) => {
     const camera = new Camera()
     camera.position = scene.camera.position
@@ -165,7 +167,10 @@ function loadState(filepath: string) {
     }
   })
   while (SCENES.length) SCENES.pop()
-  while (loadedScenes.length) SCENES.push(loadedScenes.shift())
+  while (loadedScenes.length) {
+    const scene = loadedScenes.shift()
+    if (scene) SCENES.push(scene)
+  }
   return true
 }
 

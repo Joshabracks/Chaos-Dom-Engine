@@ -1,6 +1,14 @@
 import fs from 'fs'
 import { error } from './Logger'
 
+enum SAVE_JSON_CODE {
+  SUCCESS,
+  INVALID_PATH,
+  FILE_EXISTS,
+  BAD_DATA
+}
+
+
 /**
  * Loads and returns utf-8 formatted JSON file
  * @param filepath string: Exact path to file to be loaded
@@ -16,12 +24,6 @@ function loadJSON(filepath: string) {
   }
 }
 
-enum SAVE_JSON_CODE {
-  SUCCESS,
-  INVALID_PATH,
-  FILE_EXISTS,
-  BAD_DATA
-}
 
 /**
  * Saves object as utf-8 formatted JSON file

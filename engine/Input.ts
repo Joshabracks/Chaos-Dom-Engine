@@ -30,12 +30,12 @@ const bindingTypes: {[key: string]: string} = {}
 function pollEvents() {
   EVENTS.sort((a) => a.type !== 'keyup' ? 1 : -1)
   // Run keyup/keydown events
-  while (EVENTS.length) keyAction(EVENTS.pop())
+  while (EVENTS.length) keyAction(EVENTS.pop() as InputEvent)
   // run keypressed events
   for ( const key in pressed ) {
     if (!bindings[key]) continue
     if (pressed[key] && bindingTypes[key] === KeyEvent.PRESSED) {
-      bindings[key]()
+      bindings[key]?.()
     }
   }
 }
@@ -46,7 +46,7 @@ function pollEvents() {
  * @returns boolean
  */
 function keyPressed(key: string): boolean {
-  return pressed[key]
+  return pressed[key] ? true : false
 }
 
 /**
@@ -106,7 +106,7 @@ function keyAction(event: InputEvent){
     (
       (event.type === KeyEvent.DOWN && !pressed[key]) ||
       (event.type === KeyEvent.UP)
-    ))
+    )) ? true : false
   switch(event.type) {
   case 'keydown':
     pressed[key] = true
@@ -114,7 +114,7 @@ function keyAction(event: InputEvent){
   case 'keyup':
     pressed[key] = false
   }
-  if (runAction) bindings[key](event)
+  if (runAction) bindings[key]?.(event)
 }
 
 /**
@@ -125,6 +125,7 @@ function pushEvent(event: any) {
   let type: KeyEvent
   if (event.type.match(/down/i)) type = KeyEvent.DOWN
   else if (event.type.match(/up/i)) type = KeyEvent.UP
+  else return
   
   const inputEvent: InputEvent = {
     'code': event.code || event.button,

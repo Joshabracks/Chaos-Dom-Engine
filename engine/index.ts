@@ -10,6 +10,7 @@ import * as Render from './Render'
 import * as Resize from './Resize'
 import * as SceneManager from './SceneManager'
 import * as Settings from './Settings'
+import * as file from './file'
 function initAll() {
   if (!document.querySelector('#game')) {
     const gameContainer = document.createElement('div')
@@ -33,6 +34,7 @@ export {
   Resize,
   SceneManager,
   Settings,
+  file,
   //
   initAll
 }
