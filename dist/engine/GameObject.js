@@ -55,18 +55,20 @@ function newGameObjectFromFile(filepath) {
     return newGameObjectFromJSON(file);
 }
 function getComponent(gameObject, type) {
+    var _a;
     let i = 0;
     while (i < gameObject.components.length) {
-        if (gameObject.components[i].type === type)
+        if (((_a = gameObject.components[i]) === null || _a === void 0 ? void 0 : _a.type) === type)
             return gameObject.components[i];
         i++;
     }
     return null;
 }
 function getComponentIndex(gameObject, type) {
+    var _a;
     let i = 0;
     while (i < gameObject.components.length) {
-        if (gameObject.components[i].type === type)
+        if (((_a = gameObject.components[i]) === null || _a === void 0 ? void 0 : _a.type) === type)
             return i;
         i++;
     }
