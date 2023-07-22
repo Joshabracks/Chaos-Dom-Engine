@@ -28,7 +28,7 @@ workflows:
           requires:
             - install_and_lint
       - deploy:
-          context: org_global
+          context: chaos-dom-engine
           filters:
             branches:
               only: main
