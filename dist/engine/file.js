@@ -1,5 +1,12 @@
 import fs from 'fs';
 import { error } from './Logger';
+var SAVE_JSON_CODE;
+(function (SAVE_JSON_CODE) {
+    SAVE_JSON_CODE[SAVE_JSON_CODE["SUCCESS"] = 0] = "SUCCESS";
+    SAVE_JSON_CODE[SAVE_JSON_CODE["INVALID_PATH"] = 1] = "INVALID_PATH";
+    SAVE_JSON_CODE[SAVE_JSON_CODE["FILE_EXISTS"] = 2] = "FILE_EXISTS";
+    SAVE_JSON_CODE[SAVE_JSON_CODE["BAD_DATA"] = 3] = "BAD_DATA";
+})(SAVE_JSON_CODE || (SAVE_JSON_CODE = {}));
 function loadJSON(filepath) {
     if (!fs.existsSync(filepath))
         return { error: `Cannot file file: ${filepath}` };
@@ -11,13 +18,6 @@ function loadJSON(filepath) {
         return { error: e };
     }
 }
-var SAVE_JSON_CODE;
-(function (SAVE_JSON_CODE) {
-    SAVE_JSON_CODE[SAVE_JSON_CODE["SUCCESS"] = 0] = "SUCCESS";
-    SAVE_JSON_CODE[SAVE_JSON_CODE["INVALID_PATH"] = 1] = "INVALID_PATH";
-    SAVE_JSON_CODE[SAVE_JSON_CODE["FILE_EXISTS"] = 2] = "FILE_EXISTS";
-    SAVE_JSON_CODE[SAVE_JSON_CODE["BAD_DATA"] = 3] = "BAD_DATA";
-})(SAVE_JSON_CODE || (SAVE_JSON_CODE = {}));
 function saveJSON(folderPath, filename, data, override = false) {
     if (!fs.existsSync(folderPath)) {
         const dir = fs.mkdirSync(folderPath, { recursive: true });

@@ -4,9 +4,10 @@ import { error } from './Logger'
 import { loadSVG } from './ImageLoader'
 
 interface GameObject {
-  active: boolean;
-  components: Component.Component[];
-  children: GameObject[];
+  active: boolean
+  components: Component.Component[]
+  children: GameObject[]
+  init?(props: any): any
 }
 
 /**
@@ -101,7 +102,7 @@ function getComponent(
 ): Component.Component | Component.Transform | Component.Image | null {
   let i = 0
   while (i < gameObject.components.length) {
-    if (gameObject.components[i].type === type) return gameObject.components[i]
+    if (gameObject.components[i]?.type === type) return gameObject.components[i] as Component.Component
     i++
   }
   return null
@@ -119,7 +120,7 @@ function getComponentIndex(
 ): number {
   let i = 0
   while (i < gameObject.components.length) {
-    if (gameObject.components[i].type === type) return i
+    if (gameObject.components[i]?.type === type) return i
     i++
   }
   return -1

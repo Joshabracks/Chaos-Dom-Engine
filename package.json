@@ -6,8 +6,8 @@
   "types": "dist/engine/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "build:dev": "webpack --env DEBUG=true",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint . --ext .ts"
   },
   "author": "Joshua Bracks",
   "license": "ISC",

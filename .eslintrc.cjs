@@ -16,6 +16,7 @@ module.exports = {
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended'
   ],
+  ignorePatterns: ["dist/*"],
   rules: {
     indent: ['error', 2],
     quotes: ['error', 'single'],
