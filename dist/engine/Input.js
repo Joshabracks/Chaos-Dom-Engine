@@ -10,6 +10,7 @@ const pressed = {};
 const bindings = {};
 const bindingTypes = {};
 function pollEvents() {
+    var _a;
     EVENTS.sort((a) => a.type !== 'keyup' ? 1 : -1);
     while (EVENTS.length)
         keyAction(EVENTS.pop());
@@ -17,12 +18,12 @@ function pollEvents() {
         if (!bindings[key])
             continue;
         if (pressed[key] && bindingTypes[key] === KeyEvent.PRESSED) {
-            bindings[key]();
+            (_a = bindings[key]) === null || _a === void 0 ? void 0 : _a.call(bindings);
         }
     }
 }
 function keyPressed(key) {
-    return pressed[key];
+    return pressed[key] ? true : false;
 }
 function addKeyBinding(binding) {
     const key = getKey(binding);
@@ -43,6 +44,7 @@ function getKey(event) {
     return event.code;
 }
 function keyAction(event) {
+    var _a;
     if ((event.code !== 0 && !event.code) || !event.type)
         return;
     if ([KeyEvent.DOWN, KeyEvent.UP, KeyEvent.PRESSED].indexOf(event.type) === -1)
@@ -51,7 +53,7 @@ function keyAction(event) {
     const runAction = (bindings[key] &&
         bindingTypes[key] == event.type &&
         ((event.type === KeyEvent.DOWN && !pressed[key]) ||
-            (event.type === KeyEvent.UP)));
+            (event.type === KeyEvent.UP))) ? true : false;
     switch (event.type) {
         case 'keydown':
             pressed[key] = true;
@@ -60,7 +62,7 @@ function keyAction(event) {
             pressed[key] = false;
     }
     if (runAction)
-        bindings[key](event);
+        (_a = bindings[key]) === null || _a === void 0 ? void 0 : _a.call(bindings, event);
 }
 function pushEvent(event) {
     let type;
@@ -68,6 +70,8 @@ function pushEvent(event) {
         type = KeyEvent.DOWN;
     else if (event.type.match(/up/i))
         type = KeyEvent.UP;
+    else
+        return;
     const inputEvent = {
         'code': event.code || event.button,
         'type': type,

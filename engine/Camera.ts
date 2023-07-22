@@ -48,10 +48,10 @@ function isOnScreen(camera: Camera, gameObject: GameObject): boolean {
 class Camera {
   position: Vector2 = {x: 0, y: 0}
   render(object: GameObject) {
-    if (!gameContainer) gameContainer = document.querySelector('#game')
-    if (!imageBucket) imageBucket = document.querySelector('#image-bucket')
+    if (!gameContainer) gameContainer = document.querySelector('#game') as HTMLElement
+    if (!imageBucket) imageBucket = document.querySelector('#image-bucket') as HTMLElement
     if (!object.active) {
-      imageBucket.appendChild(getComponent(object, ComponentType.Image).element)
+      imageBucket.appendChild(getComponent(object, ComponentType.Image)?.element)
       return
     }
     const image = getComponent(object, ComponentType.Image) as Image

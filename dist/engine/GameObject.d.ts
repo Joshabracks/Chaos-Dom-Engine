@@ -3,6 +3,7 @@ interface GameObject {
     active: boolean;
     components: Component.Component[];
     children: GameObject[];
+    init?(props: any): any;
 }
 declare function newGameObjectFromJSON(json: any): GameObject | null;
 declare function newGameObjectFromFile(filepath: string): GameObject | null;

@@ -96,6 +96,7 @@ function saveState(filepath, filename, override = false) {
     function serializeGameObject(object) {
         const serializer = new XMLSerializer();
         return {
+            ...object,
             active: object.active,
             children: object.children.map(serializeGameObject),
             components: object.components.map(component => {
@@ -104,18 +105,17 @@ function saveState(filepath, filename, override = false) {
                         return component;
                     case ComponentType.Image:
                         return {
+                            ...component,
                             type: component.type,
                             active: component.active,
                             depth: component.depth,
                             colors: component.colors,
                             element: serializer.serializeToString(component.element),
-                            ...component
                         };
                     default:
                         return component;
                 }
             }),
-            ...object
         };
     }
     const result = {
@@ -138,8 +138,12 @@ function loadState(filepath) {
         return false;
     if (file.ACTIVE_SCENE)
         ACTIVE_SCENE = file.ACTIVE_SCENE;
-    document.querySelector('#game').innerHTML = '';
-    document.querySelector('#image-bucket').innerHTML = '';
+    const gameContainer = document.querySelector('#game');
+    if (gameContainer)
+        gameContainer.innerHTML = '';
+    const imagebucket = document.querySelector('#image-bucket');
+    if (imagebucket)
+        imagebucket.innerHTML = '';
     const loadedScenes = file.SCENES.map((scene) => {
         const camera = new Camera();
         camera.position = scene.camera.position;
@@ -151,8 +155,11 @@ function loadState(filepath) {
     });
     while (SCENES.length)
         SCENES.pop();
-    while (loadedScenes.length)
-        SCENES.push(loadedScenes.shift());
+    while (loadedScenes.length) {
+        const scene = loadedScenes.shift();
+        if (scene)
+            SCENES.push(scene);
+    }
     return true;
 }
 function getActiveScene() {

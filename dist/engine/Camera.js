@@ -34,12 +34,13 @@ class Camera {
         this.position = { x: 0, y: 0 };
     }
     render(object) {
+        var _a;
         if (!gameContainer)
             gameContainer = document.querySelector('#game');
         if (!imageBucket)
             imageBucket = document.querySelector('#image-bucket');
         if (!object.active) {
-            imageBucket.appendChild(getComponent(object, ComponentType.Image).element);
+            imageBucket.appendChild((_a = getComponent(object, ComponentType.Image)) === null || _a === void 0 ? void 0 : _a.element);
             return;
         }
         const image = getComponent(object, ComponentType.Image);
