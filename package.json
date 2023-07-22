@@ -6,7 +6,7 @@
   "types": "dist/engine/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "test": "echo \"Error: no test specified\"",
+    "test": "echo \"no test specified\"",
     "lint": "eslint . --ext .ts"
   },
   "author": "Joshua Bracks",
