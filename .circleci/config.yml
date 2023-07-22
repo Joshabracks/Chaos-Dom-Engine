@@ -18,6 +18,7 @@ jobs:
     executor: node/default
     steps:
       - checkout
+      - run: npm run build
       - run: npx semantic-release
     
 workflows:
