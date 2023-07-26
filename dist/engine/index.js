@@ -10,7 +10,6 @@ import * as Render from './Render';
 import * as Resize from './Resize';
 import * as SceneManager from './SceneManager';
 import * as Settings from './Settings';
-import * as file from './file';
 function initAll() {
     if (!document.querySelector('#game')) {
         const gameContainer = document.createElement('div');
@@ -20,4 +19,4 @@ function initAll() {
     Input.initInput();
     Resize.initResize();
 }
-export { Application, Camera, Component, Debug, GameObject, Math, ImageLoader, Input, Render, Resize, SceneManager, Settings, file, initAll };
+export { Application, Camera, Component, Debug, GameObject, Math, ImageLoader, Input, Render, Resize, SceneManager, Settings, initAll };

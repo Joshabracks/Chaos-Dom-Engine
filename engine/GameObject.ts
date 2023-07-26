@@ -1,6 +1,6 @@
 import * as Component from './Component'
-import { loadJSON } from './file'
-import { error } from './Logger'
+// import { loadJSON } from './file'
+// import { error } from './Logger'
 import { loadSVG } from './ImageLoader'
 
 interface GameObject {
@@ -64,8 +64,8 @@ function newGameObjectFromJSON(json: any): GameObject | null {
   )
   const children: GameObject[] = []
   if (json.children) {
-    json.children.forEach((childFilePath: string) => {
-      const child: GameObject | null = newGameObjectFromFile(childFilePath)
+    json.children.forEach((childData: string) => {
+      const child: GameObject | null = newGameObjectFromJSON(childData)
       if (child) children.push(child)
     })
   }
@@ -81,14 +81,14 @@ function newGameObjectFromJSON(json: any): GameObject | null {
  * @param filepath Exact path to json file to be loaded
  * @returns GameObject or null
  */
-function newGameObjectFromFile(filepath: string): GameObject | null {
-  const file = loadJSON(filepath)
-  if (file.error) {
-    error(file.error)
-    return null
-  }
-  return newGameObjectFromJSON(file)
-}
+// function newGameObjectFromFile(filepath: string): GameObject | null {
+//   const file = loadJSON(filepath)
+//   if (file.error) {
+//     error(file.error)
+//     return null
+//   }
+//   return newGameObjectFromJSON(file)
+// }
 
 /**
  * Get component of specifit type from a GameObject if it exists
@@ -145,7 +145,7 @@ function copy(gameObject: GameObject): GameObject {
 export { 
   copy,
   GameObject, 
-  newGameObjectFromFile, 
+  // newGameObjectFromFile, 
   newGameObjectFromJSON, 
   getComponent,
   getComponentIndex

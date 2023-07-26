@@ -1,9 +1,9 @@
 {
   "name": "chaos-dom-engine",
-  "version": "1.0.10",
   "description": "Game engine that lives on the DOM",
   "main": "dist/engine/index.js",
   "types": "dist/engine/index.d.ts",
+  "type": "commonjs",
   "scripts": {
     "build": "tsc",
     "test": "echo \"no test specified\"",

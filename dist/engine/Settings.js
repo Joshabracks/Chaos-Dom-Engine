@@ -1,30 +1,8 @@
-import { error } from './Logger';
-import fs from 'fs';
-import path from 'path';
 const SETTINGS = {
     'target-fps': 60,
     'viewport-x': 1920,
     'viewport-y': 1080,
 };
-const settingsPath = path.join(__dirname, process.env.SETTINGS_JSON_PATH || './config/settings.json');
-if (fs.existsSync(settingsPath)) {
-    const file = fs.readFileSync(settingsPath, 'utf-8');
-    try {
-        const settingsConfigurations = JSON.parse(file);
-        for (const key in SETTINGS) {
-            if (SETTINGS[key] &&
-                typeof settingsConfigurations[key] === typeof SETTINGS[key]) {
-                SETTINGS[key] = settingsConfigurations[key];
-            }
-        }
-    }
-    catch (e) {
-        error(e);
-    }
-}
-else {
-    error(`Unable to find file: ${settingsPath}`);
-}
 function TargetFps(fps = 0) {
     if (fps <= 0)
         return SETTINGS['target-fps'];
