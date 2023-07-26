@@ -5,14 +5,13 @@
         "declarationMap": true,
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
-        "module": "CommonJS",
+        "module": "none",
         "outDir": "dist",
         "newLine": "LF",
         "noUnusedLocals": false,
         "noUnusedParameters": false,
         "preserveConstEnums": true,
         "removeComments": true,
-        "resolveJsonModule": true,
   },
   "files": [
     "./engine/index.ts"
