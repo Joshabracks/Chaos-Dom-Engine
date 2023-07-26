@@ -169,22 +169,6 @@ Constants used throughout the application
 `copy` [function] -> any: Makes a deep copy of given component and returns the copy
   - `component` [any]: Component to be copied.  (technically works with any give object)
 
-## file
-`SAVE_JSON_CODE` [enum]  
-  - `SUCCESS`: 0  
-  - `INVALID_PATH`: 1  
-  - `FILE_EXISTS`: 2  
-  - `BAD_DATA`: 3
----
-`loadJSON` [function] -> any: Attempts to read and return JSON file at given filepath.  Returns an error if the operation fails
-  - `filepath` [string]: direct filepath to JSON file
----
-`saveJSON` [function] -> SAVE_JSON_CODE: Attempts to save given object to a JSON file at given folder path as given filename
-  - `folderPath` [string]: path of save folder  
-  - `filename` [string]: name of destination file   
-  - `data` [any]: data to be saved  
-  - `override` [boolean]: whether or not to overwrite existing file  
-
 ### GameObject
 `GameObject`[Object]: Data object used to denote in-game objects.  
   - `active`[boolean]: Determines whether or not object will be addressed during the renderLoop  
