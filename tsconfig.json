@@ -5,21 +5,14 @@
         "declarationMap": true,
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
-        "importHelpers": true,
-        "module": "ESNext",
+        "module": "CommonJS",
         "outDir": "dist",
-        "moduleResolution": "node",
         "newLine": "LF",
-        "noFallthroughCasesInSwitch": true,
-        "noImplicitReturns": true,
-        "noUncheckedIndexedAccess": true,
         "noUnusedLocals": false,
         "noUnusedParameters": false,
         "preserveConstEnums": true,
         "removeComments": true,
         "resolveJsonModule": true,
-        "strict": true,
-        "target": "ES2018"
   },
   "files": [
     "./engine/index.ts"
