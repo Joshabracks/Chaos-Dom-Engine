@@ -1,6 +1,4 @@
 import * as Component from './Component';
-import { loadJSON } from './file';
-import { error } from './Logger';
 import { loadSVG } from './ImageLoader';
 function newGameObjectFromJSON(json) {
     if (typeof json !== 'object')
@@ -34,8 +32,8 @@ function newGameObjectFromJSON(json) {
     });
     const children = [];
     if (json.children) {
-        json.children.forEach((childFilePath) => {
-            const child = newGameObjectFromFile(childFilePath);
+        json.children.forEach((childData) => {
+            const child = newGameObjectFromJSON(childData);
             if (child)
                 children.push(child);
         });
@@ -45,14 +43,6 @@ function newGameObjectFromJSON(json) {
         children: children,
         components: components,
     };
-}
-function newGameObjectFromFile(filepath) {
-    const file = loadJSON(filepath);
-    if (file.error) {
-        error(file.error);
-        return null;
-    }
-    return newGameObjectFromJSON(file);
 }
 function getComponent(gameObject, type) {
     var _a;
@@ -84,4 +74,4 @@ function copy(gameObject) {
     gameObject.components.forEach(component => object.components.push(Component.copy(component)));
     return object;
 }
-export { copy, newGameObjectFromFile, newGameObjectFromJSON, getComponent, getComponentIndex };
+export { copy, newGameObjectFromJSON, getComponent, getComponentIndex };

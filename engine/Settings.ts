@@ -1,6 +1,6 @@
-import { error } from './Logger'
-import fs from 'fs'
-import path from 'path'
+// import { error } from './Logger'
+// import fs from 'fs'
+// import path from 'path'
 import { Vector2 } from './Math'
 
 // SETTINGS File or Default Settings
@@ -15,29 +15,29 @@ const SETTINGS: SettingsConfiguration = {
   'viewport-x': 1920,
   'viewport-y': 1080,
 }
-const settingsPath = path.join(
-  __dirname,
-  process.env.SETTINGS_JSON_PATH || './config/settings.json'
-)
+// const settingsPath = path.join(
+//   __dirname,
+//   process.env.SETTINGS_JSON_PATH || './config/settings.json'
+// )
 
-if (fs.existsSync(settingsPath)) {
-  const file = fs.readFileSync(settingsPath, 'utf-8')
-  try {
-    const settingsConfigurations = JSON.parse(file)
-    for (const key in SETTINGS) {
-      if (
-        SETTINGS[key] &&
-        typeof settingsConfigurations[key] === typeof SETTINGS[key]
-      ) {
-        SETTINGS[key] = settingsConfigurations[key]
-      }
-    }
-  } catch (e) {
-    error(e)
-  }
-} else {
-  error(`Unable to find file: ${settingsPath}`)
-}
+// if (fs.existsSync(settingsPath)) {
+//   const file = fs.readFileSync(settingsPath, 'utf-8')
+//   try {
+//     const settingsConfigurations = JSON.parse(file)
+//     for (const key in SETTINGS) {
+//       if (
+//         SETTINGS[key] &&
+//         typeof settingsConfigurations[key] === typeof SETTINGS[key]
+//       ) {
+//         SETTINGS[key] = settingsConfigurations[key]
+//       }
+//     }
+//   } catch (e) {
+//     error(e)
+//   }
+// } else {
+//   error(`Unable to find file: ${settingsPath}`)
+// }
 
 /**
  * Updates SETTINGS target-fps value if value greater than 0 is provided and
