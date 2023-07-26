@@ -3,7 +3,7 @@
   "description": "Game engine that lives on the DOM",
   "main": "dist/engine/index.js",
   "types": "dist/engine/index.d.ts",
-  "type": "commonjs",
+  "type": "module",
   "scripts": {
     "build": "tsc",
     "test": "echo \"no test specified\"",
