@@ -7,22 +7,21 @@ const PREVIOUS_SIZE: Vector2 = {
   y: Settings()['viewport-y'],
 }
 
-function onResize(scaleMultiplier = 1) {
-  function resizeSVG(svg: SVGSVGElement, scale: number) {
-    const originalHeight = parseInt(
-      svg.getAttribute('original-height') as string
-    )
-    const originalWidth = parseInt(
-      svg.getAttribute('original-width') as string
-    )
-    svg.setAttribute('height', `${originalHeight * scale}`)
-    svg.setAttribute('width', `${originalWidth * scale}`)
-  }
-  Application.SCALE *= scaleMultiplier
-  document
-    .querySelectorAll('svg')
-    .forEach((image) => resizeSVG(image, Application.SCALE))
+function resizeSVG(svg: SVGSVGElement, scale: Vector2) {
+  const originalHeight = parseInt(
+    svg.getAttribute('original-height') as string
+  )
+  const originalWidth = parseInt(svg.getAttribute('original-width') as string)
+  svg.setAttribute('height', `${originalHeight * scale.y}`)
+  svg.setAttribute('width', `${originalWidth * scale.x}`)
 }
+
+// function onResize(scaleMultiplier = 1) {
+// Application.SCALE *= scaleMultiplier
+// document
+//   .querySelectorAll('svg')
+//   .forEach((image) => resizeSVG(image, Application.SCALE))
+// }
 
 function initResize() {
   window.addEventListener('resize', () => {
@@ -33,9 +32,11 @@ function initResize() {
     const scaleMultiplier = scaleDiffX >= scaleDiffY ? widthScale : heightScale
     PREVIOUS_SIZE.x = window.innerWidth
     PREVIOUS_SIZE.y = window.innerHeight
-    onResize(scaleMultiplier)
+    Application.SCALE *= scaleMultiplier
   })
-  setTimeout(() => {window.dispatchEvent(new Event('resize'))}, 50)
+  setTimeout(() => {
+    window.dispatchEvent(new Event('resize'))
+  }, 50)
 }
 
-export { onResize, initResize }
+export { initResize, resizeSVG }

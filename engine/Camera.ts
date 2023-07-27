@@ -3,6 +3,7 @@ import { Image, Transform, ComponentType } from './Component'
 import { Vector2, rectanglesIntersect, Rect } from './Math'
 import { Viewport } from './Settings'
 import APPLICATION from './Application'
+import { resizeSVG } from './Resize'
 
 let gameContainer: HTMLElement
 let imageBucket: HTMLElement
@@ -64,6 +65,12 @@ class Camera {
     if (!transform || !image) return
     if (image.element.parentElement !== gameContainer) gameContainer.appendChild(image.element)
     const onScreenPosition: Vector2 = getCameraPosition(this, transform.position)
+    
+    const scale: Vector2 = {
+      x: APPLICATION.SCALE * transform.scale.x,
+      y: APPLICATION.SCALE * transform.scale.y
+    }
+    resizeSVG(image.element as SVGSVGElement, scale)
     image.element.style.transform = `rotate(${transform.rotation}deg)`
     image.element.style.top = `${onScreenPosition.y * APPLICATION.SCALE}px`
     image.element.style.left = `${onScreenPosition.x * APPLICATION.SCALE}px`
