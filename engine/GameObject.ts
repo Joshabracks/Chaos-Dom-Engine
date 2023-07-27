@@ -20,19 +20,20 @@ function newGameObjectFromJSON(json: any): GameObject | null {
   const components: Component.Component[] = []
   json.components.forEach(
     (component: {
-        colors: {[key: string]: string};
-        type: string;
-        active: boolean;
-        depth: number;
+        rotation: number
+        colors: {[key: string]: string}
+        type: string
+        active: boolean
+        depth: number
         position: {
-          x: number;
-          y: number;
-        };
+          x: number
+          y: number
+        }
         scale: {
-          x: number;
-          y: number;
-        };
-        element: string;
+          x: number
+          y: number
+        }
+        element: string
       }) => {
       switch (component.type) {
       /* eslint-disable no-case-declarations */
@@ -55,6 +56,7 @@ function newGameObjectFromJSON(json: any): GameObject | null {
           active: component.active,
           position: { x: component.position.x, y: component.position.y },
           scale: { x: component.scale.x, y: component.scale.y },
+          rotation: component.rotation
         }
         components.push(transform)
         break

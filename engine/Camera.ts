@@ -64,6 +64,7 @@ class Camera {
     if (!transform || !image) return
     if (image.element.parentElement !== gameContainer) gameContainer.appendChild(image.element)
     const onScreenPosition: Vector2 = getCameraPosition(this, transform.position)
+    image.element.style.transform = `rotate(${transform.rotation}deg)`
     image.element.style.top = `${onScreenPosition.y * APPLICATION.SCALE}px`
     image.element.style.left = `${onScreenPosition.x * APPLICATION.SCALE}px`
   }
