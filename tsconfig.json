@@ -5,7 +5,6 @@
         "declarationMap": true,
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
-        "module": "none",
         "outDir": "dist",
         "newLine": "LF",
         "noUnusedLocals": false,
