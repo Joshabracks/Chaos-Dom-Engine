@@ -14,12 +14,10 @@ jobs:
       - run: node --version
       - run: sudo npm i 
       - run: sudo npm run lint
-  build_and_deploy:
+  deploy:
     executor: node/default
     steps:
       - checkout
-      - run: sudo npm install typescript -g
-      - run: sudo npm run build
       - run: npx semantic-release
     
 workflows:
@@ -29,7 +27,7 @@ workflows:
       - node/test:
           requires:
             - install_and_lint
-      - build_and_deploy:
+      - deploy:
           context: chaos-dom-engine
           filters:
             branches:
