@@ -17,7 +17,7 @@ interface Component {
 interface Transform extends Component {
   type: ComponentType.Transform
   position: Vector2
-  // rotation: number
+  rotation: number
   scale: Vector2
 }
 
