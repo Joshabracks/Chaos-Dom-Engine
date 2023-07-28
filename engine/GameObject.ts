@@ -2,6 +2,7 @@ import * as Component from './Component'
 // import { loadJSON } from './file'
 // import { error } from './Logger'
 import { loadSVG } from './ImageLoader'
+import { Vector2 } from './Math'
 
 interface GameObject {
   active: boolean
@@ -22,7 +23,7 @@ function newGameObjectFromJSON(json: any): GameObject | null {
   json.components.forEach(
     (component: {
         speed: number
-        velocity: number
+        velocity: Vector2
         rotation: number
         colors: {[key: string]: string}
         type: string

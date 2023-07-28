@@ -19,7 +19,7 @@ interface Transform extends Component {
   position: Vector2
   rotation: number
   scale: Vector2
-  velocity: number
+  velocity: Vector2
   speed: number
 }
 
