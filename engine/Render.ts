@@ -9,7 +9,7 @@ function renderLoop(timestamp = 0) {
   if (delta > Application.TARGET_MS) Application.PREVIOUS_TIME_STAMP = timestamp
   const scene: Scene = getActiveScene() as Scene
   scene.objects.forEach(object => {
-    if (object.update) object.update(object)
+    if (object.update) object.update(object, delta)
     scene.camera.render(object)
   })
   pollEvents()
