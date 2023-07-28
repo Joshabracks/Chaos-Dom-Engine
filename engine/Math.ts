@@ -61,6 +61,10 @@ function lerp(value1: number, value2: number, amount: number) {
   return value1 + (value2 - value1) * amount
 }
 
+function clamp(min: number, max: number, val: number): number {
+  return val < min ? min : val > max ? max : val
+}
+
 export {
   Vector2,
   Vector3,
@@ -71,5 +75,6 @@ export {
   subtractTris,
   Rect,
   rectanglesIntersect,
-  lerp
+  lerp,
+  clamp
 }

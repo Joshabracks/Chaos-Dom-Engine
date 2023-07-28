@@ -7,7 +7,8 @@ interface GameObject {
   active: boolean
   components: Component.Component[]
   children: GameObject[]
-  init?(props: any): any
+  init?(): void
+  update?(): void
 }
 
 /**
@@ -20,6 +21,7 @@ function newGameObjectFromJSON(json: any): GameObject | null {
   const components: Component.Component[] = []
   json.components.forEach(
     (component: {
+        velocity: number
         rotation: number
         colors: {[key: string]: string}
         type: string
@@ -56,7 +58,8 @@ function newGameObjectFromJSON(json: any): GameObject | null {
           active: component.active,
           position: { x: component.position.x, y: component.position.y },
           scale: { x: component.scale.x, y: component.scale.y },
-          rotation: component.rotation
+          rotation: component.rotation,
+          velocity: component.velocity
         }
         components.push(transform)
         break
