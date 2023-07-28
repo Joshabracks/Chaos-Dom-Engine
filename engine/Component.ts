@@ -20,6 +20,7 @@ interface Transform extends Component {
   rotation: number
   scale: Vector2
   velocity: number
+  speed: number
 }
 
 interface Image extends Component {

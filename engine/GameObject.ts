@@ -21,6 +21,7 @@ function newGameObjectFromJSON(json: any): GameObject | null {
   const components: Component.Component[] = []
   json.components.forEach(
     (component: {
+        speed: number
         velocity: number
         rotation: number
         colors: {[key: string]: string}
@@ -59,7 +60,8 @@ function newGameObjectFromJSON(json: any): GameObject | null {
           position: { x: component.position.x, y: component.position.y },
           scale: { x: component.scale.x, y: component.scale.y },
           rotation: component.rotation,
-          velocity: component.velocity
+          velocity: component.velocity,
+          speed: component.speed
         }
         components.push(transform)
         break
