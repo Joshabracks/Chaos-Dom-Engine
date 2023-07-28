@@ -9,7 +9,7 @@ interface GameObject {
   components: Component.Component[]
   children: GameObject[]
   init?(): void
-  update?(self: GameObject): void
+  update?(self: GameObject, delta: number): void
 }
 
 /**
