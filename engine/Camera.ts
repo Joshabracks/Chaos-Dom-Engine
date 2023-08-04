@@ -13,9 +13,9 @@ let imageBucket: HTMLElement
  * @param pos Vector2
  * @returns Vector2
  */
-function getCameraPosition(camera: Camera, pos: Vector2): Vector2 {
-  return { x: pos.x - camera.position.x, y: pos.y - camera.position.y }
-}
+// function getCameraPosition(camera: Camera, pos: Vector2): Vector2 {
+//   return { x: pos.x - camera.position.x, y: pos.y - camera.position.y }
+// }
 
 /**
  * Checks to see if GameObject is on screen according to the Camera 
@@ -63,7 +63,6 @@ class Camera {
     const transform = getComponent(object, ComponentType.Transform) as Transform
     if (!transform || !image) return
     if (image.element.parentElement !== gameContainer) gameContainer.appendChild(image.element)
-    const onScreenPosition: Vector2 = getCameraPosition(this, transform.position)
     
     const scale: Vector2 = {
       x: APPLICATION.SCALE * transform.scale.x,
@@ -71,8 +70,10 @@ class Camera {
     }
     resizeSVG(image.element as SVGSVGElement, scale)
     image.element.style.transform = `rotate(${transform.rotation}deg)`
-    image.element.style.top = `${onScreenPosition.y * APPLICATION.SCALE}px`
-    image.element.style.left = `${onScreenPosition.x * APPLICATION.SCALE}px`
+    const yPos: string = `${transform.position.y * APPLICATION.SCALE}px`
+    const xPos: string = `${transform.position.x * APPLICATION.SCALE}px`
+    if (image.element.style.top !== yPos) image.element.style.top = yPos
+    if (image.element.style.left !== xPos) image.element.style.left = xPos
   }
   
 }
