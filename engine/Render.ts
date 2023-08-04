@@ -17,7 +17,7 @@ function renderLoop(timestamp = 0) {
   const scene: Scene = getActiveScene() as Scene
   if (scene.camera.position.x < 0) scene.camera.position.x = 0
   if (scene.camera.position.y < 0) scene.camera.position.y = 0
-  window.scrollTo(scene.camera.position.x, scene.camera.position.y)
+  window.scroll(scene.camera.position.x * Application.SCALE, scene.camera.position.y * Application.SCALE)
   scene.objects.forEach((object: GameObject) => renderObjectRecursive(object, scene, delta))
   pollEvents()
   requestAnimationFrame(renderLoop)
