@@ -12,6 +12,7 @@ function renderObjectRecursive(object: GameObject, scene: Scene, delta: number) 
 function renderLoop(timestamp = 0) {
   if (!Application.RUNNING) window.close()
   if (!Application.START) Application.START = timestamp
+  pollEvents()
   const delta = timestamp - Application.PREVIOUS_TIME_STAMP
   if (delta > Application.TARGET_MS) Application.PREVIOUS_TIME_STAMP = timestamp
   const scene: Scene = getActiveScene() as Scene
@@ -19,7 +20,6 @@ function renderLoop(timestamp = 0) {
   if (scene.camera.position.y < 0) scene.camera.position.y = 0
   window.scroll(scene.camera.position.x * Application.SCALE, scene.camera.position.y * Application.SCALE)
   scene.objects.forEach((object: GameObject) => renderObjectRecursive(object, scene, delta))
-  pollEvents()
   requestAnimationFrame(renderLoop)
 }
 
