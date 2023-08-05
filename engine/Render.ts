@@ -15,8 +15,8 @@ function renderLoop(timestamp = 0) {
   const delta = timestamp - Application.PREVIOUS_TIME_STAMP
   if (delta > Application.TARGET_MS) Application.PREVIOUS_TIME_STAMP = timestamp
   const scene: Scene = getActiveScene() as Scene
-  scene.objects.forEach((object: GameObject) => renderObjectRecursive(object, scene, delta))
   pollEvents()
+  scene.objects.forEach((object: GameObject) => renderObjectRecursive(object, scene, delta))
   requestAnimationFrame(renderLoop)
 }
 
