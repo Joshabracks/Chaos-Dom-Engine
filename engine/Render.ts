@@ -5,7 +5,7 @@ import { Scene, getActiveScene } from './SceneManager'
 
 function renderObjectRecursive(object: GameObject, scene: Scene, delta: number) {
   if (object.update && object.active) object.update(object, delta)
-  scene.camera.render(object)
+  scene.cameras.forEach((camera) => camera.renderAll(scene))
   object.children.forEach((child: GameObject) => renderObjectRecursive(child, scene, delta))
 }
 
@@ -19,6 +19,5 @@ function renderLoop(timestamp = 0) {
   scene.objects.forEach((object: GameObject) => renderObjectRecursive(object, scene, delta))
   requestAnimationFrame(renderLoop)
 }
-
 
 export {renderLoop}

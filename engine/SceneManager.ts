@@ -11,7 +11,7 @@ const SCENES: Scene[] = []
 interface Scene {
   name: string
   objects: GameObject[]
-  camera: Camera
+  cameras: Camera[]
 }
 
 function newScene(name = ''): number {
@@ -21,7 +21,7 @@ function newScene(name = ''): number {
   const scene: Scene = {
     name: name,
     objects: [],
-    camera: new Camera()
+    cameras: []
   }
   SCENES.push(scene)
   return SCENES.length - 1
@@ -40,14 +40,24 @@ function newSceneFromJSON(json: any): number {
     const gameObject: GameObject | null = newGameObjectFromJSON(object) || null
     if (gameObject !== null) objects.push(gameObject)
   })
-  const camera: Camera = new Camera()
-  if (json.camera && json.camera.position && json.camera.position.x && json.camera.position.y) {
-    camera.position = {x: json.camera.position.x, y: json.camera.position.y}
+  const cameras: Camera[] = []
+  if (json.cameras) {
+    json.cameras.forEach(obj => {
+      if (!obj.height || !obj.width) return
+      const camera = new Camera()
+      if (obj && obj.position && obj.position.x && obj.position.y) {
+        camera.position = {x: obj.position.x, y: obj.position.y}
+      }
+      camera.cameraId = obj.cameraId
+      camera.init(obj.width, obj.height)
+      document.body.appendChild(camera.canvas)
+      cameras.push(camera)
+    })
   }
   const scene: Scene = {
     name: json.name,
     objects: objects,
-    camera: camera
+    cameras: cameras
   }
   SCENES.push(scene)
   return SCENES.length - 1
