@@ -16,13 +16,6 @@ function resizeSVG(svg: SVGSVGElement, scale: Vector2) {
   svg.setAttribute('width', `${originalWidth * scale.x}`)
 }
 
-// function onResize(scaleMultiplier = 1) {
-// Application.SCALE *= scaleMultiplier
-// document
-//   .querySelectorAll('svg')
-//   .forEach((image) => resizeSVG(image, Application.SCALE))
-// }
-
 function initResize() {
   window.addEventListener('resize', () => {
     const widthScale = window.innerWidth / PREVIOUS_SIZE.x

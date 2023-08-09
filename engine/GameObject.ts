@@ -1,6 +1,4 @@
 import * as Component from './Component'
-// import { loadJSON } from './file'
-// import { error } from './Logger'
 import { loadSVG } from './ImageLoader'
 import { Vector2 } from './Math'
 
@@ -47,7 +45,7 @@ function newGameObjectFromJSON(json: any): GameObject | null {
           const image: Component.Image = {
             type: Component.ComponentType.Image,
             active: component.active,
-            element: element,
+            element: element.canvas,
             depth: component.depth,
             colors: component.colors
           }

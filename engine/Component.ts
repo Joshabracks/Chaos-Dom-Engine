@@ -1,12 +1,10 @@
 /* eslint-disable no-case-declarations */
-import { loadSVG } from './ImageLoader'
 import { Vector2 } from './Math'
 
 enum ComponentType {
   Transform = 'transform',
   Image = 'image',
 }
-
 
 interface Component {
   [x: string]: any
@@ -25,7 +23,7 @@ interface Transform extends Component {
 
 interface Image extends Component {
   type: ComponentType.Image
-  element: HTMLImageElement | SVGSVGElement
+  element: HTMLCanvasElement
   depth: number,
   colors: {[key: string]: string}
 }
@@ -35,7 +33,7 @@ interface Image extends Component {
  * @param component 
  * @returns Component
  */
-function copy(component: any): any {
+function copy(component: any): Component | null {
   switch(component.type) {
   case ComponentType.Transform:
     return {
@@ -48,7 +46,7 @@ function copy(component: any): any {
     return {
       type: ComponentType.Image,
       active: JSON.parse(JSON.stringify(component.active)),
-      element: loadSVG(component.element.getAttribute('image-src'), component.colors),
+      element: component.element,
       depth: JSON.parse(JSON.stringify(component.depth)),
       colors: JSON.parse(JSON.stringify(component.colors))
     } as Image

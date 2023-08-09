@@ -1,4 +1,3 @@
-// import fs from 'fs'
 import { error } from './Logger'
 
 let IMAGE_ID_INDEX = 0
@@ -8,49 +7,57 @@ let IMAGE_ID_INDEX = 0
  * @param SVGString 
  * @param colors Color values to replace specific variable markers left in string or file
  * @param scale 
- * @returns SVGSVGElement or null
- */
-function loadSVG(SVGString: string, colors: {[key: string]: string} = {}, scale = 1): SVGSVGElement | null {
+ * @returns Promise
+*/
+function loadSVG(SVGString: string, colors: {[key: string]: string} = {}, scale = 1): { canvas: HTMLCanvasElement, context: CanvasRenderingContext2D } {
+  // #image-bucket: Holds unrendered SVG 
   let imageBucket = document.querySelector('#image-bucket')
   if (!imageBucket) {
     imageBucket = document.createElement('div')
     imageBucket.id = 'image-bucket'
     document.body.appendChild(imageBucket)
   }
-  // let file = (fs.existsSync(SVGString) && fs.readFileSync(SVGString, 'utf-8'))
-  let file = SVGString.match(/<svg[\s\S]+<\/svg>/) && SVGString || ''
-  // if (!file) {
-  // }
-  if (!file) {
-    error(`unable to find or parse file from ${SVGString}`)
-    return null
+
+  let svgConfirmed = SVGString.match(/<svg[\s\S]+<\/svg>/) && SVGString || ''
+  if (!svgConfirmed) {
+    error(`unable to find or parse svgConfirmed from ${SVGString}`)
+    return
   }
   if (colors) {
     for ( const key in colors) {
       const colorRegex = new RegExp(`{{${key}}}`, 'g')
-      file = file.replace(colorRegex, colors[key] as string)
+      svgConfirmed = svgConfirmed.replace(colorRegex, colors[key] as string)
     }
   }
 
-  imageBucket.innerHTML += file
-  const svg = document.querySelector('#image-bucket svg:last-child')
-  if (!svg) {
-    error(`there was a problem adding svg from filepath: ${SVGString}`)
-    return null
-  }
-  let width: number = parseInt(svg.getAttribute('width') as string)
-  let height: number = parseInt(svg.getAttribute('height') as string)
+  const svg = new Blob([svgConfirmed], {type: 'image/svg+xml'})
+
+  const img = new Image()
+  const url = window.URL.createObjectURL(svg)
+  img.src = url
+  let width = img.width * scale
+  let height = img.height * scale
   if (width) width = width * scale
   if (height) height = height * scale
-  svg.setAttribute('width', `${width}`)
-  svg.setAttribute('height', `${height}`)
-  svg.setAttribute('original-width', `${width}`)
-  svg.setAttribute('original-height', `${height}`)
-  svg.setAttribute('image-id', `${IMAGE_ID_INDEX}`)
-  svg.setAttribute('image-src', SVGString)
+  img.setAttribute('width', `${width}`)
+  img.setAttribute('height', `${height}`)
+  img.setAttribute('original-width', `${width}`)
+  img.setAttribute('original-height', `${height}`)
+  img.setAttribute('image-id', `${IMAGE_ID_INDEX}`)
+  img.setAttribute('image-src', SVGString)
+  imageBucket.appendChild(img)
   IMAGE_ID_INDEX++
-  imageBucket.appendChild(svg)
-  return svg as SVGSVGElement
+
+  const canvas = document.createElement('canvas')
+  const context = canvas.getContext('2d')
+  canvas.width = width
+  canvas.height = height
+
+  img.onload = () => {
+    context.drawImage(img, 0, 0)
+    imageBucket.appendChild(canvas)
+    return {context, canvas}
+  }
 }
 
 export { loadSVG }
