@@ -40,17 +40,15 @@ function newGameObjectFromJSON(json: any): GameObject | null {
       switch (component.type) {
       /* eslint-disable no-case-declarations */
       case Component.ComponentType.Image as string:
-        const element = loadSVG(component.element, component.colors)
-        if (element) {
-          const image: Component.Image = {
-            type: Component.ComponentType.Image,
-            active: component.active,
-            element: element.canvas,
-            depth: component.depth,
-            colors: component.colors
-          }
-          components.push(image)
+        const image: Component.Image = {
+          type: Component.ComponentType.Image,
+          active: component.active,
+          element: null,
+          depth: component.depth,
+          colors: component.colors
         }
+        loadSVG(component.element, component.colors).then(e => image.element = e.canvas)
+        components.push(image)
         break
       case Component.ComponentType.Transform as string:
         const transform: Component.Transform = {
