@@ -49,7 +49,7 @@ function newSceneFromJSON(json: any): number {
         camera.position = {x: obj.position.x, y: obj.position.y}
       }
       camera.cameraId = obj.cameraId
-      camera.init(obj.width, obj.height)
+      camera.init(obj.width, obj.height, obj.screenPos, obj.screenDepth)
       document.body.appendChild(camera.canvas)
       cameras.push(camera)
     })
