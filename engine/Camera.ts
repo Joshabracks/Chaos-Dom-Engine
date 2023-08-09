@@ -43,6 +43,7 @@ class Camera {
     this.canvas.style.zIndex = `${screenDepth}`
     this.canvas.style.position = 'absolute'
     this.context = this.canvas.getContext('2d')
+    document.body.appendChild(this.canvas)
   }
   renderAll(scene: Scene) {
     const cameraBounds: Rect = {
