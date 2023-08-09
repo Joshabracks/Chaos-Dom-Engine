@@ -149,7 +149,6 @@ function copy(gameObject: GameObject): GameObject {
 export { 
   copy,
   GameObject, 
-  // newGameObjectFromFile, 
   newGameObjectFromJSON, 
   getComponent,
   getComponentIndex

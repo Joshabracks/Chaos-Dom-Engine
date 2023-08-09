@@ -35,8 +35,10 @@ function loadSVG(SVGString: string, colors: {[key: string]: string} = {}, scale 
     const img = new Image()
     const url = window.URL.createObjectURL(svg)
     img.src = url
-    let width = img.width * scale
-    let height = img.height * scale
+    const widthMatch = SVGString.match(/width=["']([\d.]+)/)
+    const heightMatch = SVGString.match(/height=["']([\d.]+)/)
+    let width = (parseFloat(widthMatch && widthMatch[1] || '0') || img.width) * scale
+    let height = (parseFloat(heightMatch && heightMatch[1] || '0') || img.height) * scale
     if (width) width = width * scale
     if (height) height = height * scale
     img.setAttribute('width', `${width}`)
