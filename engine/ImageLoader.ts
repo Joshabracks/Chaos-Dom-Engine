@@ -1,5 +1,3 @@
-import { error } from './Logger'
-
 let IMAGE_ID_INDEX = 0
 
 /**
