@@ -32,11 +32,16 @@ class Camera {
   context: CanvasRenderingContext2D
   active: boolean
   cameraId: string
-  init(width: number, height: number) {
+  init(width: number, height: number, screenPos: Vector2, screenDepth: number) {
+    this.active = true
     this.canvas = document.createElement('canvas')
     this.canvas.setAttribute('camera-id', this.cameraId)
     this.canvas.width = width
     this.canvas.height = height
+    this.canvas.style.top = `${screenPos.y}`
+    this.canvas.style.left = `${screenPos.x}`
+    this.canvas.style.zIndex = `${screenDepth}`
+    this.canvas.style.position = 'absolute'
     this.context = this.canvas.getContext('2d')
   }
   renderAll(scene: Scene) {
