@@ -23,7 +23,7 @@ interface Transform extends Component {
 
 interface Image extends Component {
   type: ComponentType.Image
-  element: HTMLCanvasElement
+  element: HTMLImageElement
   depth: number,
   colors: {[key: string]: string}
 }

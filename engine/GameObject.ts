@@ -47,7 +47,7 @@ function newGameObjectFromJSON(json: any): GameObject | null {
           depth: component.depth,
           colors: component.colors
         }
-        loadSVG(component.element, component.colors).then(e => image.element = e.canvas)
+        loadSVG(component.element, component.colors).then(e => image.element = e)
         components.push(image)
         break
       case Component.ComponentType.Transform as string:
