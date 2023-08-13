@@ -83,10 +83,10 @@ class Camera {
     // Apply transformations and render object
     this.context.save()
     if (transform.rotation) this.context.rotate(transform.rotation)
+    this.context.translate(onScreenPosition.x * scale.x, onScreenPosition.y * scale.y)
     this.context.drawImage(
-      image.element, 
-      onScreenPosition.x * scale.x, 
-      onScreenPosition.y * scale.y, 
+      image.element,
+      0, 0,
       image.element.width * scale.x, 
       image.element.height * scale.y
     )
