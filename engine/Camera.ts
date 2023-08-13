@@ -86,7 +86,8 @@ class Camera {
     this.context.translate(onScreenPosition.x * scale.x, onScreenPosition.y * scale.y)
     this.context.drawImage(
       image.element,
-      0, 0,
+      -(onScreenPosition.x * scale.x), 
+      -(onScreenPosition.y * scale.y),
       image.element.width * scale.x, 
       image.element.height * scale.y
     )
