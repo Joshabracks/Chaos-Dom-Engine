@@ -7,7 +7,7 @@ let IMAGE_ID_INDEX = 0
  * @param scale 
  * @returns Promise
 */
-function loadSVG(SVGString: string, colors: {[key: string]: string} = {}, scale = 1): Promise<{ canvas: HTMLCanvasElement, context: CanvasRenderingContext2D }> {
+function loadSVG(SVGString: string, colors: {[key: string]: string} = {}, scale = 1): Promise<HTMLImageElement> {
   return new Promise((resolve, reject) => {
 
     // #image-bucket: Holds unrendered SVG 
@@ -50,15 +50,16 @@ function loadSVG(SVGString: string, colors: {[key: string]: string} = {}, scale 
     imageBucket.appendChild(img)
     IMAGE_ID_INDEX++
   
-    const canvas = document.createElement('canvas')
-    const context = canvas.getContext('2d')
-    canvas.width = width
-    canvas.height = height
+    // const canvas = document.createElement('canvas')
+    // const context = canvas.getContext('2d')
+    // canvas.width = width
+    // canvas.height = height
   
     img.onload = () => {
-      context.drawImage(img, 0, 0)
-      imageBucket.appendChild(canvas)
-      resolve({context, canvas})
+      resolve(img)
+      // context.drawImage(img, 0, 0)
+      // imageBucket.appendChild(canvas)
+      // resolve({context, canvas})
     }
   })
 }
